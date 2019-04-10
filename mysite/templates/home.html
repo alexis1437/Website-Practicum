@@ -1,0 +1,62 @@
+<!-- home.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Yo! I'm TY</title>
+    <link href="//fonts.googleapis.com/css?family=Lemon" rel="stylesheet" type="text/css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//djangogirlstaipei.github.io/assets/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="header">
+        <h1 class="site-title text-center">
+            <a href="/">Hello! Welcome to my home.</a>
+        </h1>
+    </div>
+    <div class="container post post-detail">
+        <div class="post-heading">
+            <h1 class="title">About me</h1>
+            <div class="date">2019.04.07</div>
+        </div>
+        <img src="{{ MEDIA_URL }}alexis.jpg" height="345" width="345">
+        <div class="post-heading">
+            <h1 class="title">Brief description</h1>
+        </div>
+        <div class="post-content">
+          Hey, I'm TingYuan!
+        </div>
+        <div class="post-content">
+            You have already visit this website {{ visits }} times.
+            Total number of passenger: {{ passenger }} .
+        </div>
+        <hr class="fancy-line">
+        <div class="post-content">
+        <h1 class="title">Chat room</h1>
+        {% if posts %}
+          {% for post in posts %}
+            <tr>
+              <td>{{ post.user }} : </td>
+              <td>{{ post.text }}</td>
+              {% if post.uid == uid %}
+                <td><input type="button" value="Delete" onclick="location.href='/delete/{{ post.id }}'"></td>
+              {% endif %}
+              <br>
+            </tr>
+          {% endfor %}
+        {% else %}
+          no data
+        {% endif %}
+        <form action="" method="POST">
+          {% csrf_token %}
+          Name: <input type="text" name="name"/><br/>
+          Content:<input type="text" name="content"/><br/>
+          <input type="submit" value="Post"/>
+        </form>
+        </div>
+    </div>
+    <script src="//maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false"></script>
+    <script src="//djangogirlstaipei.github.io/assets/js/map.js"></script>
+</body>
+</html>
