@@ -37,6 +37,8 @@ def listpost(request):
 
 
 def delete(request, post_id=None):
+    uid = request.COOKIES.get('uid')
     post = Post.objects.get(id=post_id)
-    post.delete()
+    if uid == post.uid:
+        post.delete()
     return HttpResponseRedirect('/')
